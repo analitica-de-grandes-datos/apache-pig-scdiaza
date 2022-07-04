@@ -20,3 +20,14 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+data = LOAD 'data.csv' USING PigStorage(',') AS (
+            id:int,
+            name:CHARARRAY,
+            mid_name:CHARARRAY,
+            date:CHARARRAY,
+            color:CHARARRAY,
+            number:int
+    );
+data_month = FOREACH data GENERATE REGEX_EXTRACT(date,'(....-)([0-9][0-9)])-(..)',2);
+STORE data_month INTO 'output' USING PigStorage(',');
+DUMP data_month;
