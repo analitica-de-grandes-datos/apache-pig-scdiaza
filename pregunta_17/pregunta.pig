@@ -25,9 +25,9 @@ data = LOAD 'data.csv' USING PigStorage(',') AS (
             mid_name:CHARARRAY,
             date:datetime,
             color:CHARARRAY,
-            number:int);
-            
+            number:int
+    );
 data_color = FOREACH data GENERATE name,color;
-data_filter = FILTER data_color BY  name matches '^K.+' OR color == 'blue';
+data_filter = FILTER data_color BY color == 'blue' OR color =='black';
 STORE data_filter INTO 'output' USING PigStorage(',');
 DUMP data_filter;
