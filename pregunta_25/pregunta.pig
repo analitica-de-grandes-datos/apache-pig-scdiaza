@@ -24,10 +24,10 @@ data = LOAD 'data.csv' USING PigStorage(',') AS (
             id:int,
             name:CHARARRAY,
             mid_name:CHARARRAY,
-            date:CHARARRAY,
+            date:datetime,
             color:CHARARRAY,
-            number:int
-    );
-data_month = FOREACH data GENERATE REGEX_EXTRACT(date,'(....-)([0-9][0-9)])-(..)',2);
-STORE data_month INTO 'output' USING PigStorage(',');
-DUMP data_month;
+            number:int);
+            
+data_a_position = FOREACH data GENERATE INDEXOF(name,'a',0);
+STORE data_a_position INTO 'output' USING PigStorage(',');
+DUMP data_a_position;
